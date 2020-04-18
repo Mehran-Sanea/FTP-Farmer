@@ -1,7 +1,9 @@
 # Modules
+import json
 from ftplib import FTP
 from os import system, name
 from sys import argv
+from requests import get
 from colorama import Fore, init
 init(autoreset="true")
 
@@ -18,6 +20,13 @@ def cls():
         system("cls")
     else:
         system("clear")
+
+# get ip
+def ip():
+    site = "https://ipinfo.io/json"
+    response = get(site, verify = True)
+    data = response.json()
+    return data["ip"]
 
 # Show banner.
 def banner():
@@ -70,12 +79,15 @@ def loginTry(target, user, password):
 
 # Anonymous login
 def anonymousLogin(target, anonymous_password_list):
+    j = 0
     for i in range(len(anonymous_password_list)):
-        try:
-            print(f"{Fore.LIGHTGREEN_EX}try {Fore.RED}{i+1}{Fore.LIGHTGREEN_EX}...")
-            loginTry(target, "anonymous", anonymous_password_list[i])
-        except:
-            pass
+        for uname in ["anonymous", "ftp"]:
+            try:
+                j += 1
+                print(f"{Fore.LIGHTGREEN_EX}try {Fore.RED}{j}{Fore.LIGHTGREEN_EX}...")
+                loginTry(target, uname, anonymous_password_list[i])
+            except:
+                pass
     print(f"{Fore.LIGHTGREEN_EX}'{target}' {Fore.RED}is not vulnerable!")
 
 # Brute force
@@ -105,7 +117,7 @@ if len(argv) <= 1 or len(argv) > 3:
 else:
     target = input(f"{Fore.LIGHTGREEN_EX}Please enter target(without 'http(s)://'): {Fore.RED}")
     if argv[1] == "-a":
-        anonymous_password_list = ["anonymous", "anonymose@anonymuse.com", f"anonymouse@{target}"]
+        anonymous_password_list = ["anonymous", f"anonymous@{ip()}"]
         anonymousLogin(target, anonymous_password_list)
     elif argv[1] == "-b":
         user = input(f"{Fore.LIGHTGREEN_EX}Please enter your username to test: {Fore.RED}")
