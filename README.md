@@ -16,3 +16,8 @@ FTPFarmer -a
 FTPFarmer -b 
 ```
 :+1: Test BruteForece attack.
+
+### Hint:
+  - **Target:** FTP url or IP without \'http://\' or \'https://\'.
+  - **User:** Username to login with FTP.
+  - **Password:** Password list file path.
