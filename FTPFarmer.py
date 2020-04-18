@@ -1,5 +1,3 @@
-#!/user/bin/env python3
-
 # Modules
 from ftplib import FTP
 from os import system, name
