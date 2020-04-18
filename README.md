@@ -4,6 +4,7 @@ This tool make an easy way to test Anonymous login and Brute force attacks on FT
 ## Installation
 ```bash
 pip install colorama
+pip install requests
 ```
 
 ## Usage
